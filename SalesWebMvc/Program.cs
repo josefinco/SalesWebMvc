@@ -8,6 +8,10 @@ builder.Services.AddDbContext<SalesWebMvcContext>(options =>
  options.UseMySql(builder.Configuration.GetConnectionString("SalesWebMvcContext"), ServerVersion.AutoDetect(connectString), builder =>
 builder.MigrationsAssembly("SalesWebMvc")));
 
+//Efetua a injeção de dependência SeedingService para popular na DB
+//TO-DO: Inserir a classe de seed
+builder.Services.AddScoped<SeedingService>();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
