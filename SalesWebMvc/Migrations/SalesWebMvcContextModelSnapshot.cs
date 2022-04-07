@@ -3,9 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SalesWebMvc.Data;
-
-#nullable disable
+using SalesWebMvc.Models;
 
 namespace SalesWebMvc.Migrations
 {
@@ -16,18 +14,15 @@ namespace SalesWebMvc.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.3")
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("SalesWebMvc.Models.Department", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
@@ -37,20 +32,15 @@ namespace SalesWebMvc.Migrations
             modelBuilder.Entity("SalesWebMvc.Models.SalesRecord", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("double");
+                    b.Property<double>("Amount");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime(6)");
+                    b.Property<DateTime>("Date");
 
-                    b.Property<int>("SellerId")
-                        .HasColumnType("int");
+                    b.Property<int?>("SellerId");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 
@@ -62,25 +52,17 @@ namespace SalesWebMvc.Migrations
             modelBuilder.Entity("SalesWebMvc.Models.Seller", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<double>("BaseSalary")
-                        .HasColumnType("double");
+                    b.Property<double>("BaseSalary");
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime(6)");
+                    b.Property<DateTime>("BirthDate");
 
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
+                    b.Property<int?>("DepartmentId");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<string>("Email");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
@@ -93,32 +75,14 @@ namespace SalesWebMvc.Migrations
                 {
                     b.HasOne("SalesWebMvc.Models.Seller", "Seller")
                         .WithMany("Sales")
-                        .HasForeignKey("SellerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Seller");
+                        .HasForeignKey("SellerId");
                 });
 
             modelBuilder.Entity("SalesWebMvc.Models.Seller", b =>
                 {
                     b.HasOne("SalesWebMvc.Models.Department", "Department")
                         .WithMany("Sellers")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-                });
-
-            modelBuilder.Entity("SalesWebMvc.Models.Department", b =>
-                {
-                    b.Navigation("Sellers");
-                });
-
-            modelBuilder.Entity("SalesWebMvc.Models.Seller", b =>
-                {
-                    b.Navigation("Sales");
+                        .HasForeignKey("DepartmentId");
                 });
 #pragma warning restore 612, 618
         }

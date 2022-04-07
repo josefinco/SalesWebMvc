@@ -1,4 +1,5 @@
 ﻿using SalesWebMvc.Models.Enums;
+using System;
 
 namespace SalesWebMvc.Models
 {
@@ -22,6 +23,5 @@ namespace SalesWebMvc.Models
             Status = status;
             Seller = seller;
         }
-
     }
 }

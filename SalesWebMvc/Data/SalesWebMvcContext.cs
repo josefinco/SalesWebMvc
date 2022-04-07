@@ -1,12 +1,10 @@
-﻿#nullable disable
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SalesWebMvc.Models;
 
-namespace SalesWebMvc.Data
+namespace SalesWebMvc.Models
 {
     public class SalesWebMvcContext : DbContext
     {
@@ -16,9 +14,7 @@ namespace SalesWebMvc.Data
         }
 
         public DbSet<Department> Department { get; set; }
-
         public DbSet<Seller> Seller { get; set; }
-
         public DbSet<SalesRecord> SalesRecord { get; set; }
     }
 }
