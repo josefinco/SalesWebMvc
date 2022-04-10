@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SalesWebMvc.Models;
+using SalesWebMvc.Services.Exeptions;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -25,14 +26,22 @@ namespace SalesWebMvc.Services
         public async Task InsertAsync(Seller obj)
         {
             _context.Add(obj);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public async Task RemoveAsync(int id)
         {
-            var obj = _context.Seller.Find(id);
-            _context.Seller.Remove(obj);
-            _context.SaveChangesAsync();
+            try
+            {
+                var obj = _context.Seller.Find(id);
+                _context.Seller.Remove(obj);
+                await _context.SaveChangesAsync();
+
+            }
+            catch (DbUpdateException)
+            {
+                throw new IntegrityException("Can't delete seller because he/she has sales");
+            }
         }
 
         public async Task<Seller> FindByIdAsync(int id)
@@ -49,8 +58,8 @@ namespace SalesWebMvc.Services
             }
             try
             {
-            _context.Update(obj);
-            _context.SaveChangesAsync();
+                _context.Update(obj);
+                await _context.SaveChangesAsync();
 
             }
             catch (DbUpdateConcurrencyException e)
